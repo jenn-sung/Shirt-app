@@ -21,4 +21,17 @@ class V1::ShirtsController < ApplicationController
       render json: {errors: shirt.errors.full_messages}
     end
   end
+
+  def update
+    shirt = Shirt.new(
+     size: params[:size],
+     color: params[:color],
+   price: params[:price]
+   )
+    if shirt.save
+      render json: shirt.as_json
+    else
+      render json: {errors: shirt.errors.full_messages}
+    end
+  end
 end

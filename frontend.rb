@@ -7,6 +7,7 @@ p "Please choose an option"
 p "[1] See all of my shirts!"
 p "[2] See a particular shirt"
 p "[3] Create a shirt option."
+p "[4] Update a shirt option"
 
 user_input = gets.chomp
 
@@ -29,5 +30,17 @@ elsif user_input == '3'
   p "Enter the price"
   the_params[:price] = gets.chomp
   response = Unirest.post("localhost:3000/v1/shirts", parameters: the_params)
+  pp response.body
+elsif user_input == '4'
+  the_params = {}
+  p "Enter the id of the shirt you would like to update"
+  shirt_id = gets.chomp
+  p "Enter the size of the shirt"
+  the_params[:size] = gets.chomp
+  p "Enter the color of the shirt"
+  the_params[:color] = gets.chomp
+  p "Enter the price of the shirt"
+  the_params[:price] = gets.chomp
+  response = Unirest.patch("localhost:3000/v1/shirts/#{shirt_id}", parameters: the_params)
   pp response.body
 end
