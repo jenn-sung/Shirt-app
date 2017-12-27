@@ -23,12 +23,12 @@ class V1::ShirtsController < ApplicationController
   end
 
   def update
-    shirt = Shirt.new(
+    shirt = Shirt.find_by(id: params[:id])
+    if shirt.update(
      size: params[:size],
      color: params[:color],
-   price: params[:price]
-   )
-    if shirt.save
+     price: params[:price]
+    )
       render json: shirt.as_json
     else
       render json: {errors: shirt.errors.full_messages}
